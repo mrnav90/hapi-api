@@ -1,0 +1,55 @@
+{
+  "name": "Node-API",
+  "version": "1.0.0",
+  "author": "VietNa",
+  "description": "Hapi Webservice",
+  "engines": {
+    "node": ">= 6.0"
+  },
+  "scripts": {
+    "start": "npm-run-all --parallel watch:server watch:build",
+    "watch:build": "webpack --watch",
+    "watch:server": "export NODE_ENV=development && nodemon ./public/server.js --watch ./public"
+  },
+  "dependencies": {
+    "@nesive/hapi-json-view": "^4.0.0",
+    "@nesive/hapi-mailer": "^5.0.1",
+    "@nesive/hapi-mongoose-connector": "^3.0.0",
+    "async": "^2.1.4",
+    "bcrypt": "^1.0.2",
+    "boom": "^4.2.0",
+    "glue": "^4.1.0",
+    "good": "^7.1.0",
+    "good-console": "^6.2.0",
+    "handlebars": "^4.0.6",
+    "hapi": "^16.1.0",
+    "hapi-auth-jwt": "^4.0.0",
+    "hoek": "^4.1.0",
+    "inert": "^4.1.0",
+    "joi": "^10.2.0",
+    "jsonwebtoken": "^7.2.1",
+    "lout": "^9.2.0",
+    "mongoose": "^4.8.1",
+    "mongoose-scroll": "^0.1.0",
+    "request": "^2.79.0",
+    "uuid": "^3.0.1",
+    "vision": "^4.1.1",
+    "visionary": "^6.0.2",
+    "xml2js": "^0.4.17"
+  },
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-polyfill": "^6.22.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "dotenv": "^4.0.0",
+    "eslint": "^3.14.1",
+    "file-loader": "^0.10.0",
+    "json-loader": "^0.5.4",
+    "nodemon": "^1.11.0",
+    "npm-run-all": "^4.0.1",
+    "webpack": "^1.14.0"
+  },
+  "license": "MIT"
+}
