@@ -63,7 +63,7 @@ internals.config = {
       plugin: {
         register: '@nesive/hapi-mongoose-connector',
         options: {
-          uri: '127.0.0.1:27017/node-api-test'
+          uri: '127.0.0.1:27017/triplink'
         }
       }
     },
