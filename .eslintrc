@@ -43,7 +43,8 @@
     "SDATA": true,
     "RECONF": true,
     "App": true,
-    "angular": true
+    "angular": true,
+    "json": true
   },
 
   "plugins": [

@@ -12,9 +12,9 @@
     "watch:server": "export NODE_ENV=development && nodemon ./public/server.js --watch ./public"
   },
   "dependencies": {
-    "@nesive/hapi-json-view": "^4.0.0",
-    "@nesive/hapi-mailer": "^5.0.1",
-    "@nesive/hapi-mongoose-connector": "^3.0.0",
+    "@nesive/hapi-json-view": "https://github.com/nesive/hapi-json-view.git",
+    "@nesive/hapi-mailer": "https://github.com/nesive/hapi-mailer.git",
+    "@nesive/hapi-mongoose-connector": "https://github.com/nesive/hapi-mongoose-connector.git",
     "async": "^2.1.4",
     "bcrypt": "^1.0.2",
     "boom": "^4.2.0",

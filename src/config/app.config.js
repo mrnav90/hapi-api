@@ -80,8 +80,7 @@ internals.config = {
     engines: {
       js: {
         module: HapiJsonView.create(),
-        contentType: 'application/json',
-        compileMode: 'async'
+        contentType: 'application/json'
       }
     },
     relativeTo: Path.join(__dirname, '../src/templates'),

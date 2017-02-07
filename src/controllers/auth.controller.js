@@ -10,8 +10,7 @@ export default class AuthController extends BaseController {
   init() {
     return {
       handler: (request, reply) => {
-        reply('test');
-        // reply.view('users/read.js');
+        reply.view('users/read.js');
       }
     };
   }
