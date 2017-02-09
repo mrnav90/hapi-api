@@ -61,17 +61,9 @@ internals.config = {
     },
     {
       plugin: {
-        register: '@nesive/hapi-mongoose-connector',
-        options: {
-          uri: '127.0.0.1:27017/triplink'
-        }
-      }
-    },
-    {
-      plugin: {
         register: 'hapi-camo',
         options: {
-          uri: '127.0.0.1:27017/triplink'
+          uri: 'mongodb://localhost/triplink'
         }
       }
     },

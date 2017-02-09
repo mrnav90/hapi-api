@@ -1,6 +1,7 @@
 'use strict';
 
 import BaseModel from '../base/base.model';
+import Bcrypt from 'bcrypt';
 
 export default class UserModel extends BaseModel {
   constructor() {
@@ -23,5 +24,33 @@ export default class UserModel extends BaseModel {
     };
     this.created = Date;
     this.image = String;
+  }
+
+  static collectionName() {
+    return 'users';
+  }
+
+  static comparePassword(password) {
+    return new Promise((resolve, reject) => {
+      Bcrypt.compare(password, this.password, (error) => {
+        if (error) {
+          reject(false);
+        }
+        resolve(true);
+      });
+    });
+  }
+
+  preSave() {
+    let salt = Bcrypt.genSaltSync(10);
+    if (this.email) {
+      this.email = this.email.toLowerCase();
+    }
+    if (this.name) {
+      this.name = this.name.toLowerCase();
+    }
+    if (this.password) {
+      this.password = Bcrypt.hashSync(this.password, salt);
+    }
   }
 }
