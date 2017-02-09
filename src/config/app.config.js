@@ -69,6 +69,14 @@ internals.config = {
     },
     {
       plugin: {
+        register: 'hapi-camo',
+        options: {
+          uri: '127.0.0.1:27017/triplink'
+        }
+      }
+    },
+    {
+      plugin: {
         register: 'lout',
         options: {
           endpoint: '/'
