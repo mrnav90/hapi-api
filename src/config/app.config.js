@@ -43,10 +43,7 @@ internals.config = {
     },
     {
       plugin: {
-        register: 'hapi-auth-jwt',
-        options: {
-          select: [ 'io' ]
-        }
+        register: 'hapi-auth-jwt2'
       }
     },
     {

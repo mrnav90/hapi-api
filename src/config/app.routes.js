@@ -3,5 +3,6 @@
 import AuthController from '../controllers/auth.controller';
 
 module.exports = [
-  { method: 'GET', path: '/auth/login', config: (new AuthController()).init() }
+  { method: 'POST', path: '/auth/login', config: (new AuthController()).login() },
+  { method: 'POST', path: '/auth/logout', config: (new AuthController()).logout() }
 ];

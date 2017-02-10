@@ -18,10 +18,7 @@ export default class UserModel extends BaseModel {
       }
     };
     this.phone_number = String;
-    this.password = {
-      type: String,
-      select: false
-    };
+    this.password = String;
     this.created = Date;
     this.image = String;
   }
@@ -30,15 +27,19 @@ export default class UserModel extends BaseModel {
     return 'users';
   }
 
-  static comparePassword(password) {
+  static comparePassword(password, passwordHash) {
     return new Promise((resolve, reject) => {
-      Bcrypt.compare(password, this.password, (error) => {
-        if (error) {
-          reject(false);
+      Bcrypt.compare(password, passwordHash, (err, res) => {
+        if (err) {
+          reject(err);
         }
-        resolve(true);
+        resolve(res);
       });
     });
+  }
+
+  static findByEmail(email) {
+    return this.findOne({ email: email.toLowerCase() });
   }
 
   preSave() {

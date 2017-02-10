@@ -1,8 +1,5 @@
-/*global */
+/* global user, code, message */
 
-
-json.set('version', '1.0');
-json.set('links', {});
-json.set('meta', { });
-
-json.set('linked', {});
+json.set('statusCode', code);
+json.set('message', message);
+json.set('data', user);

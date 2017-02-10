@@ -8,6 +8,10 @@ export default class BaseModel extends Document {
   }
 
   static create(data) {
-    return super.create(data).save();
+    return this.create(data).save();
+  }
+
+  static findById(id) {
+    return this.findOne({ _id: id });
   }
 }

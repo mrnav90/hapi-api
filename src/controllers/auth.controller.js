@@ -2,28 +2,72 @@
 
 import BaseController from '../base/base.controller';
 import UserModel from '../models/user.model';
+import { createToken, userInfo } from '../helpers/user';
 
 export default class AuthController extends BaseController {
   constructor() {
     super();
   }
 
-  init() {
+  login() {
     return {
+      tags: ['auth'],
+      description: 'Logs the user in.',
+      validate: {
+        payload: {
+          email: this.Joi.string().email().required(),
+          password: this.Joi.string().min(6).max(50).required()
+        }
+      },
       handler: (request, reply) => {
-        UserModel.comparePassword('12121212').then((res) => {
-          console.log(res);
-        });
-        // UserModel.create({
-        //   email: 'Minhman@gmail.com',
-        //   phone_number: '0123456789',
-        //   password: '12121212',
-        //   created: new Date(),
-        //   image: 'https://scontent.fdad3-1.fna.fbcdn.net/v/t1.0-9/13344748_1730264523858606_3240140766714948266_n.jpg?oh=d59673c08f6cc2c93bbabf8dac440efc&oe=59475311'
-        // }).then((data) => {
-        //   console.log(data);
-        //   reply('Done');
-        // });
+        let email = request.payload.email;
+        let password = request.payload.password;
+        this.Async.waterfall([
+          (callback) => {
+            UserModel.findByEmail(email).then((user) => {
+              if (!user) {
+                return reply(this.Boom.notFound());
+              }
+              callback(null, user);
+            });
+          },
+          (user, callback) => {
+            UserModel.comparePassword(password, user.password).then((res) => {
+              if (!res) {
+                return reply(this.Boom.unauthorized());
+              }
+              callback(null, user);
+            });
+          },
+          (user) => {
+            let token = createToken(user);
+            let cookie_options = {
+              ttl: 365 * 24 * 60 * 60 * 1000,
+              encoding: 'none',
+              isSecure: true,
+              isHttpOnly: true,
+              clearInvalid: false,
+              strictHeader: true
+            };
+            reply.view('users/read.js', { code: 200, message: 'Login successfully', user: userInfo(user) })
+              .header('Authorization', token)
+              .state('token', token, cookie_options);
+          }
+        ]);
+      }
+    };
+  }
+
+  logout() {
+    return {
+      tags: ['auth'],
+      description: 'Logs the user out.',
+      auth: {
+        strategy: 'authenticate',
+        mode: 'required'
+      },
+      handler: (request, reply) => {
+        reply().code(204);
       }
     };
   }
