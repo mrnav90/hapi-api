@@ -27,6 +27,8 @@
     "hapi-auth-jwt": "^4.0.0",
     "hapi-auth-jwt2": "^7.2.4",
     "hapi-camo": "0.0.3",
+    "hapi-i18n": "^1.0.3",
+    "hapi-redis-connection": "^1.0.1",
     "hoek": "^4.1.0",
     "inert": "^4.1.0",
     "joi": "^10.2.0",

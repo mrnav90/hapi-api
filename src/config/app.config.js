@@ -43,6 +43,21 @@ internals.config = {
     },
     {
       plugin: {
+        register: 'hapi-i18n',
+        options: {
+          locales: ['vi', 'en'],
+          directory: Path.join(__dirname, '../i18n'),
+          languageHeaderField: 'language'
+        }
+      }
+    },
+    {
+      plugin: {
+        register: 'hapi-redis-connection'
+      }
+    },
+    {
+      plugin: {
         register: 'hapi-auth-jwt2'
       }
     },

@@ -20,38 +20,28 @@ export default class AuthController extends BaseController {
         }
       },
       handler: (request, reply) => {
-        let email = request.payload.email;
-        let password = request.payload.password;
+        this.init(request, reply);
         this.Async.waterfall([
           (callback) => {
-            UserModel.findByEmail(email).then((user) => {
+            UserModel.findByEmail(this.data.email).then((user) => {
               if (!user) {
-                return reply(this.Boom.notFound());
+                return this.response(404);
               }
               callback(null, user);
             });
           },
           (user, callback) => {
-            UserModel.comparePassword(password, user.password).then((res) => {
+            UserModel.comparePassword(this.data.password, user.password).then((res) => {
               if (!res) {
-                return reply(this.Boom.unauthorized());
+                return this.response(401);
               }
               callback(null, user);
             });
           },
           (user) => {
             let token = createToken(user);
-            let cookie_options = {
-              ttl: 365 * 24 * 60 * 60 * 1000,
-              encoding: 'none',
-              isSecure: true,
-              isHttpOnly: true,
-              clearInvalid: false,
-              strictHeader: true
-            };
-            reply.view('users/read.js', { code: 200, message: 'Login successfully', user: userInfo(user) })
-              .header('Authorization', token)
-              .state('token', token, cookie_options);
+            this.request.redis.set(token, 'valid');
+            return this.response(200, this.translate('login'), userInfo(user)).header('Authorization', token);
           }
         ]);
       }
@@ -67,7 +57,9 @@ export default class AuthController extends BaseController {
         mode: 'required'
       },
       handler: (request, reply) => {
-        reply().code(204);
+        this.init(request, reply);
+        this.request.redis.del(request.headers.authorization);
+        return this.response(204);
       }
     };
   }

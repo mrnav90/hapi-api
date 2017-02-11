@@ -17,10 +17,53 @@ export default class UserModel extends BaseModel {
         unique: true
       }
     };
-    this.phone_number = String;
+    this.birthday = String;
+    this.sex = Number;
+    this.role = String;
+    this.group_id = Number;
+    this.phone = String;
     this.password = String;
     this.created = Date;
-    this.image = String;
+    this.imageAvatar = String;
+    this.videoAvatar = String;
+    this.favorites = [String];
+    this.socials = {
+      facebook: String,
+      twitter: String,
+      linkedin: String
+    };
+    this.social_accounts = {
+      facebook: {
+        name: String,
+        email: String,
+        phone: String
+      },
+      google: {
+        name: String,
+        email: String
+      }
+    };
+    this.biography = String;
+    this.payment = {
+      credit_card: {
+        card_number: String,
+        security_code: String,
+        card_type: String,
+        month: String,
+        year: String
+      },
+      bank_account: {
+        account_number: String,
+        account_name: String
+      }
+    };
+    this.address = {
+      street: String,
+      neighborhood: String,
+      precinct: String,
+      district: String,
+      city: String
+    };
   }
 
   static collectionName() {
